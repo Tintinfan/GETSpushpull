@@ -59,7 +59,7 @@ spriteset(spriteset_Karlsruher_LOCO_mint, "gfx\N_WAGEN_DVT/Karlsruher_LOCO_mint_
 									{ template_158trains_4x(0, 0)}		
 									
 //Spriteset verkehrsrot
-
+/*
 spriteset(spriteset_Karlsruher_LOCO_verkehrsrot, "gfx\N_WAGEN_DVT/Karlsruher_LOCO_verkehrsrot_1x_8bpp.png")
 									{ template_158trains_1x(0, 0)}
 				
@@ -71,7 +71,7 @@ spriteset(spriteset_Karlsruher_LOCO_verkehrsrot, "gfx\N_WAGEN_DVT/Karlsruher_LOC
 				
 		alternative_sprites (spriteset_Karlsruher_LOCO_verkehrsrot, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP, "gfx\N_WAGEN_DVT/Karlsruher_LOCO_verkehrsrot_4x_32bpp.png", "gfx\N_WAGEN_DVT/Karlsruher_LOCO_verkehrsrot_4x_mask.png")
 									{ template_158trains_4x(0, 0)}	
-									
+	*/								
 //Spriteset Karlsruhe
 
 spriteset(spriteset_Karlsruher_LOCO_Karlsruhe, "gfx\N_WAGEN_DVT/Karlsruher_LOCO_Karlsruhe_1x_8bpp.png")
@@ -592,14 +592,47 @@ item (FEAT_TRAINS , ITEM_KARLSRUHER_LOCO_MINT, 5020)
 			}
 	}
 
-						switch(FEAT_TRAINS, SELF, switch_graphics_Karlsruher_LOCO_verkehrsrot, position_in_vehid_chain  % 3) {
+						switch(FEAT_TRAINS, SELF, switch_graphics_Karlsruher_LOCO_verkehrsrot, position_in_vehid_chain  % 15) {
 								0:     spriteset_empty;
-								1:     return switch_spritestack_Karlsruher_LOCO_verkehrsrot;
-								2:     spriteset_empty;}
+								1:     spriteset_empty;
+								2:     spriteset_empty;
+								3:     spriteset_empty;
+								4:     spriteset_empty;
+							5:     return switch_spritestack_Karlsruher_LOCO_verkehrsrot;
+								6:     spriteset_empty;
+								7:     spriteset_empty;
+								8:     spriteset_empty;
+								9:     spriteset_empty;
+								10:     spriteset_empty;
+								11:     spriteset_empty;
+								12:     spriteset_empty;
+								13:     spriteset_empty;
+								14:     spriteset_empty;}
+						switch(FEAT_TRAINS, PARENT, switch_graphics_Karlsruher_LOCO_verkehrsrot_reversingcheck, vehicle_is_reversed){
+								0: switch_graphics_Karlsruher_LOCO_verkehrsrot;
+								default: switch_graphics_reversing_idchecking;}
 
 						switch (FEAT_TRAINS, SELF, switch_articulated_Karlsruher_LOCO_verkehrsrot, extra_callback_info1) {
-							1 .. 2: return ITEM_KARLSRUHER_LOCO_VERKEHRSROT;
+							1 .. 15: return ITEM_KARLSRUHER_LOCO_VERKEHRSROT;
 								return CB_RESULT_NO_MORE_ARTICULATED_PARTS;}
+						switch(FEAT_TRAINS, SELF, switch_length_Karlsruher_LOCOtest, position_in_vehid_chain % 15) {
+							0: 1;
+							1: 1;
+							2: 1;
+							3: 1;
+							4: 1;
+							5: 1;
+							6: 1;
+							7: 1;
+							8: 1;
+							9: 1;
+							10: 1;
+							11: 1;
+							12: 1;
+							13: 1;
+							14: 1;
+							}
+
 
 item (FEAT_TRAINS , ITEM_KARLSRUHER_LOCO_VERKEHRSROT, 5021)
 		{
@@ -643,9 +676,9 @@ item (FEAT_TRAINS , ITEM_KARLSRUHER_LOCO_VERKEHRSROT, 5021)
 		//Vehicels Graphics
 			graphics
 			{
-			default						: switch_graphics_Karlsruher_LOCO_verkehrsrot;
+			default						: switch_graphics_Karlsruher_LOCO_verkehrsrot_reversingcheck;
 			additional_text				: string(STR_DESC_KARL);
-			length						: switch_length_Karlsruher_LOCO;
+			length						: switch_length_Karlsruher_LOCOtest;
 			articulated_part			: switch_articulated_Karlsruher_LOCO_verkehrsrot;
 			purchase					: spriteset_Karlsruher_LOCO_purchase_verkehrsrot;
 			cost_factor					: 23;

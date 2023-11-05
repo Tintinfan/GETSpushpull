@@ -1,0 +1,53 @@
+
+spriteset(spriteset_111_verkehrsrot, "gfx/BR_111/BR_111_verkehrsrot_1x_8bpp.png")
+									{ template_108trains_1x(0, 0)}
+				
+		alternative_sprites (spriteset_111_verkehrsrot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/BR_111/BR_111_verkehrsrot_1x_32bpp.png", "gfx/BR_111/BR_111_verkehrsrot_1x_mask.png")
+									{template_108trains_1x(0, 0)}
+				
+		alternative_sprites (spriteset_111_verkehrsrot, ZOOM_LEVEL_IN_2X, BIT_DEPTH_32BPP, "gfx/BR_111/BR_111_verkehrsrot_2x_32bpp.png", "gfx/BR_111/BR_111_verkehrsrot_2x_mask.png")
+									{template_108trains_2x(0, 0)}
+				
+		alternative_sprites (spriteset_111_verkehrsrot, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP, "gfx/BR_111/BR_111_verkehrsrot_4x_32bpp.png", "gfx/BR_111/BR_111_verkehrsrot_4x_mask.png")
+									{template_108trains_4x(0, 0)}	
+spriteset(spriteset_Karlsruher_LOCO_verkehrsrot, "gfx\N_WAGEN_DVT/Karlsruher_LOCO_verkehrsrot_1x_8bpp.png")
+									{ template_158trains_1x(0, 0)}
+				
+		alternative_sprites (spriteset_Karlsruher_LOCO_verkehrsrot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx\N_WAGEN_DVT/Karlsruher_LOCO_verkehrsrot_1x_32bpp.png", "gfx\N_WAGEN_DVT/Karlsruher_LOCO_verkehrsrot_1x_mask.png")
+									{ template_158trains_1x(0, 0)}
+				
+		alternative_sprites (spriteset_Karlsruher_LOCO_verkehrsrot, ZOOM_LEVEL_IN_2X, BIT_DEPTH_32BPP, "gfx\N_WAGEN_DVT/Karlsruher_LOCO_verkehrsrot_2x_32bpp.png", "gfx\N_WAGEN_DVT/Karlsruher_LOCO_verkehrsrot_2x_mask.png")
+									{ template_158trains_2x(0, 0)}
+				
+		alternative_sprites (spriteset_Karlsruher_LOCO_verkehrsrot, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP, "gfx\N_WAGEN_DVT/Karlsruher_LOCO_verkehrsrot_4x_32bpp.png", "gfx\N_WAGEN_DVT/Karlsruher_LOCO_verkehrsrot_4x_mask.png")
+									{ template_158trains_4x(0, 0)}	
+									
+spriteset(spriteset_Karlsruher_verkehrsrot2, "gfx\N_WAGEN_DVT/Karlsruher_verkehrsrot_1x_8bpp.png")
+									{ template_158trains_1x(0, 0)}
+				
+		alternative_sprites (spriteset_Karlsruher_verkehrsrot2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx\N_WAGEN_DVT/Karlsruher_verkehrsrot_1x_32bpp.png", "gfx\N_WAGEN_DVT/Karlsruher_verkehrsrot_1x_mask.png")
+									{ template_158trains_1x(0, 0)}
+				
+		alternative_sprites (spriteset_Karlsruher_verkehrsrot2, ZOOM_LEVEL_IN_2X, BIT_DEPTH_32BPP, "gfx\N_WAGEN_DVT/Karlsruher_verkehrsrot_2x_32bpp.png", "gfx\N_WAGEN_DVT/Karlsruher_verkehrsrot_2x_mask.png")
+									{ template_158trains_2x(0, 0)}
+				
+		alternative_sprites (spriteset_Karlsruher_verkehrsrot2, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP, "gfx\N_WAGEN_DVT/Karlsruher_verkehrsrot_4x_32bpp.png", "gfx\N_WAGEN_DVT/Karlsruher_verkehrsrot_4x_mask.png")
+									{ template_158trains_4x(0, 0)}	
+							
+                        
+switch(FEAT_TRAINS, SELF, rvswitch_graphics_Karlsruher_LOCO_verkehrsrot, position_in_vehid_chain  ) {
+								0:     return spriteset_Karlsruher_verkehrsrot2;
+								default:     spriteset_empty; 
+								}
+switch(FEAT_TRAINS, SELF, rvswitch_111_graphics_verkehrsrot, position_in_vehid_chain ) {
+								6:     return spriteset_111_verkehrsrot;
+								default:     spriteset_empty; 
+								}
+
+
+//this checks the ID of the opposite vehicle
+switch(FEAT_TRAINS, SELF, switch_graphics_reversing_idchecking, 
+[STORE_TEMP(position_in_consist_from_end-position_in_consist, 0x10F), var[0x61, 0, 0x0000FFFF, 0xC6]]){
+    1114: rvswitch_111_graphics_verkehrsrot;
+    5021: rvswitch_graphics_Karlsruher_LOCO_verkehrsrot;
+}

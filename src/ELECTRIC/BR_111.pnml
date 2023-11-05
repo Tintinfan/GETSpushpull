@@ -29,6 +29,7 @@ spriteset(spriteset_111_orientrot, "gfx/BR_111/BR_111_orientrot_1x_8bpp.png")
 									{template_108trains_4x(0, 0)}		
 									
 //Verkehrsrot
+/*
 spriteset(spriteset_111_verkehrsrot, "gfx/BR_111/BR_111_verkehrsrot_1x_8bpp.png")
 									{ template_108trains_1x(0, 0)}
 				
@@ -40,7 +41,7 @@ spriteset(spriteset_111_verkehrsrot, "gfx/BR_111/BR_111_verkehrsrot_1x_8bpp.png"
 				
 		alternative_sprites (spriteset_111_verkehrsrot, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP, "gfx/BR_111/BR_111_verkehrsrot_4x_32bpp.png", "gfx/BR_111/BR_111_verkehrsrot_4x_mask.png")
 									{template_108trains_4x(0, 0)}	
-									
+		*/							
 //S-Bahn
 spriteset(spriteset_111_sbahn, "gfx/BR_111/BR_111_sbahn_1x_8bpp.png")
 									{ template_108trains_1x(0, 0)}
@@ -405,13 +406,36 @@ item (FEAT_TRAINS , ITEM_BR_111_ORIENTROT, 1113)
 	}
 
 
-						switch(FEAT_TRAINS, SELF, switch_111_graphics_verkehrsrot, position_in_vehid_chain % 2) {
-							0:	   spriteset_empty;
-							1:     spriteset_111_verkehrsrot;}
-							
-						switch (FEAT_TRAINS, SELF, switch_articulated_111_verkehrsrot, extra_callback_info1) {
-							1: return ITEM_BR_111_VERKEHRSROT; 
+						switch(FEAT_TRAINS, SELF, switch_111_graphics_verkehrsrot, position_in_vehid_chain % 10) {
+								0:     spriteset_empty;
+								1:     spriteset_empty;
+								2:     spriteset_empty;
+								3:     spriteset_empty;
+							4:     return spriteset_111_verkehrsrot;
+								5:     spriteset_empty;
+								6:     spriteset_empty;
+								7:     spriteset_empty;
+								8:     spriteset_empty;
+								9:     spriteset_empty;}
+						switch(FEAT_TRAINS, PARENT, switch_111_graphics_verkehrsrot_reversingcheck, vehicle_is_reversed){
+							0: switch_111_graphics_verkehrsrot;
+							default: switch_graphics_reversing_idchecking;}
+						switch (FEAT_TRAINS, SELF, switch_articulated_111_verkehrsrot_test, extra_callback_info1) {
+							1 .. 10: return ITEM_BR_111_VERKEHRSROT; 
 								return CB_RESULT_NO_MORE_ARTICULATED_PARTS;}
+						switch(FEAT_TRAINS, SELF, switch_length_111_test, position_in_vehid_chain % 10) {
+							0: 1;
+							1: 1;
+							2: 1;
+							3: 1;
+							4: 1;
+							5: 1;
+							6: 1;
+							7: 1;
+							8: 1;
+							9: 1;
+						}
+
 													
 item (FEAT_TRAINS , ITEM_BR_111_VERKEHRSROT, 1114)
 		{
@@ -453,12 +477,12 @@ item (FEAT_TRAINS , ITEM_BR_111_VERKEHRSROT, 1114)
 		//Vehicels Graphics
 			graphics
 			{
-			default							:switch_111_graphics_verkehrsrot;
+			default							:switch_111_graphics_verkehrsrot_reversingcheck;
 			additional_text					: string(STR_CONCAT_2, 
 											  string(STR_TRACTION_ELECTRIC), 
 											  string(STR_DESC_PASS),);
-			length							:switch_length_111;
-			articulated_part				:switch_articulated_111_verkehrsrot;
+			length							:switch_length_111_test;
+			articulated_part				:switch_articulated_111_verkehrsrot_test;
 			purchase_cargo_capacity		    :0 ;
 			cargo_capacity	                :return 0 ;
 			purchase						:spriteset_111_purchase3;
